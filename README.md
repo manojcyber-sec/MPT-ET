@@ -33,3 +33,45 @@ USB was not available, so the device was connected using Wireless Debugging: Dev
 6. Navigated the device file system under /sdcard.
 
 ## Commands Executed & Output
+
+
+# Experiment 2 — Android Studio Installation and SDK Configuration
+
+**Course:** 7CS1292 / Mobile Penetration Testing and Ethical Hacking  
+**Platform:** Windows  
+**Tool:** Android Studio  
+
+## Aim
+
+To install Android Studio and verify the Android SDK and required SDK tools for Android application development.
+
+## Tools & Setup
+
+| Item | Details |
+|---|---|
+| Platform | Windows |
+| IDE | Android Studio |
+| Android SDK | Installed |
+| SDK Platform | Android 17 (API 37) |
+| Android Emulator | Installed |
+
+## Steps Performed
+
+1. Installed Android Studio with the required Android SDK and emulator components.
+2. Opened **Android SDK Manager** and verified the installed SDK platform.
+3. Verified the required SDK tools including **Build-Tools, Platform-Tools, Emulator, Command-line Tools, and Emulator Hypervisor Driver**.
+4. Confirmed that the required SDK components were successfully installed and available.
+
+## Output
+
+Android Studio SDK Manager displayed the installed Android platform and required SDK tools successfully.
+
+### Evidence
+
+- SDK Platforms screenshot
+- SDK Tools screenshot
+- Screen recording of the practical
+
+## Result
+
+Android Studio was successfully installed and the Android SDK and required SDK tools were configured and verified successfully.
