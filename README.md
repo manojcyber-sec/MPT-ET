@@ -75,3 +75,58 @@ Android Studio SDK Manager displayed the installed Android platform and required
 ## Result
 
 Android Studio was successfully installed and the Android SDK and required SDK tools were configured and verified successfully.
+
+# Experiment 3 – Android Architecture, Boot Process & Partition Layout
+
+## Aim
+
+To examine the Android system architecture, boot-related information, mounted filesystems, and partition layout of an Android emulator using ADB shell commands.
+
+## Objectives
+
+- Verify ADB connectivity with the Android emulator.
+- Identify the Android version, SDK level, CPU architecture, and Linux kernel.
+- Inspect important Android system directories.
+- Examine boot-related properties.
+- Analyze mounted filesystems and mount points.
+- Inspect Android block-device and partition information.
+- Identify named partitions such as `super`, `vbmeta`, and `metadata`.
+- Check whether dynamic partitions are enabled.
+
+## Environment
+
+- Android Studio Emulator
+- Virtual Device: Pixel 8
+- Android Version: 15
+- API Level: 35
+- CPU ABI: x86_64
+- ADB: Android Debug Bridge
+- Host OS: Windows
+
+## Commands Used
+
+```bash
+adb devices
+adb shell
+
+getprop ro.build.version.release
+getprop ro.build.version.sdk
+getprop ro.product.cpu.abi
+uname -a
+
+getprop ro.boot.slot_suffix
+getprop ro.boot.verifiedbootstate
+cat /proc/cmdline
+
+df -h
+cat /proc/mounts
+cat /proc/partitions
+
+ls -l /dev/block/by-name
+
+ls /system
+ls /vendor
+ls /product
+
+getprop ro.boot.dynamic_partitions
+getprop ro.boot.super_partition
