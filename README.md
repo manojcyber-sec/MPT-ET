@@ -130,3 +130,113 @@ ls /product
 
 getprop ro.boot.dynamic_partitions
 getprop ro.boot.super_partition
+
+# Experiment 4 — APK Dissection Using Apktool and Android Emulator
+
+**Course:** 7CS1292 / Mobile Penetration Testing and Ethical Hacking  
+**Platform:** Windows  
+**Tools:** Android Studio, Android Emulator, ADB, Apktool, Android SDK Build-Tools  
+**Training Application:** InsecureBankv2
+
+## Aim
+
+To learn the basic workflow of APK analysis using Apktool and an Android Emulator by obtaining an authorized training APK, decoding and inspecting its contents, performing a harmless UI modification, rebuilding and signing the APK, and testing the modified application in the emulator.
+
+## Environment
+
+- Android Studio
+- Android Emulator — Pixel 5
+- Android SDK Platform-Tools
+- ADB
+- Apktool
+- InsecureBankv2 training application
+- Windows
+
+## Steps Performed
+
+1. Started the Android Emulator and verified the device using ADB.
+2. Identified the installed InsecureBankv2 training application.
+3. Located the APK path using the Android Package Manager.
+4. Pulled the authorized APK from the emulator to the Windows system.
+5. Decoded the APK using Apktool.
+6. Inspected the decoded AndroidManifest.xml and application structure.
+7. Inspected SMALI files in the decoded project.
+8. Modified a harmless UI text value without changing security functionality.
+9. Rebuilt the modified APK using Apktool.
+10. Signed the rebuilt APK using a lab signing key.
+11. Verified the APK signature using apksigner.
+12. Installed and tested the modified APK in the Android Emulator.
+13. Verified that the harmless UI modification was reflected in the application.
+
+## Commands Used
+
+```bash
+adb devices
+adb shell pm list packages | findstr /i "insecure"
+adb shell pm path com.android.insecurebankv2
+adb pull <APK_PATH> C:\APKLab\insecurebankv2.apk
+
+apktool --version
+apktool d insecurebankv2.apk -o insecurebankv2_decoded
+apktool b insecurebankv2_decoded -o insecurebankv2_modified.apk
+
+keytool -genkeypair -v -keystore lab-key.jks -alias labkey -keyalg RSA -keysize 2048 -validity 10000
+apksigner sign --ks lab-key.jks insecurebankv2_modified.apk
+apksigner verify --verbose insecurebankv2_modified.apk
+
+adb install insecurebankv2_modified.apk
+
+# Experiment 5 — Android Application Creation and UI Event Testing
+
+**Course:** 7CS1292 / Mobile Penetration Testing and Ethical Hacking  
+**Platform:** Windows  
+**IDE:** Android Studio  
+**Emulator:** Pixel 5 API 30  
+**Language:** Kotlin / Jetpack Compose
+
+## Aim
+
+To create a basic Android application with a TextView and Button, implement a button click event, display a harmless message, and test the application successfully on an Android Emulator.
+
+## Tools & Setup
+
+| Item | Details |
+|---|---|
+| Platform | Windows |
+| IDE | Android Studio |
+| Project | AndroidSecurityLab |
+| Language | Kotlin |
+| UI Framework | Jetpack Compose |
+| Emulator | Pixel 5 API 30 |
+
+## Steps Performed
+
+1. Created a new Android Studio project using the Empty Activity template.
+2. Created the project named `AndroidSecurityLab`.
+3. Designed the application screen using Jetpack Compose.
+4. Added the TextView text `Android Security Lab`.
+5. Added a `SHOW MESSAGE` button.
+6. Implemented the button click event using an OnClickListener.
+7. Configured the application to display a harmless confirmation message when the button was pressed.
+8. Built the application successfully.
+9. Ran the application on the Pixel 5 Android Emulator.
+10. Pressed the `SHOW MESSAGE` button and verified the output.
+
+## Output
+
+The Android application launched successfully in the emulator. The screen displayed:
+
+- `Android Security Lab`
+- `SHOW MESSAGE` button
+
+The button responded to the click event and displayed the configured harmless confirmation message.
+
+### Evidence
+
+- Android Studio project screenshot
+- Emulator output screenshot
+- Screen recording of the practical
+
+## Result
+
+A basic Android application was successfully created, built, executed, and tested on the Android Emulator. The `SHOW MESSAGE` button responded correctly and produced the expected output.
