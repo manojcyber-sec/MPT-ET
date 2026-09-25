@@ -1,38 +1,72 @@
 # MPT-ET
-Mobile Pentestration Testing and Ethical Hacking
+
+Mobile Penetration Testing and Ethical Hacking
 
 # Experiment 1 — Browser-Based Android & ADB Essentials
 
 **Course:** 7CS1292 / Mobile Penetration Testing and Ethical Hacking  
 **Mode:** Browser (WebADB) + Physical Android Device (Wireless Debugging)  
-**Tool:** WebADB (https://app.webadb.com/)  
+**Tool:** WebADB  
 **Browser:** Google Chrome  
 
 ## Aim
 
-To introduce Android Debug Bridge (ADB) concepts through a browser-based workflow, and practice device enumeration, shell access, package management (pm), activity management (am), and basic Android file-system navigation — without installing Android Studio or local ADB.
+To introduce Android Debug Bridge (ADB) concepts through a browser-based workflow and practice device enumeration, shell access, package management, activity management, and basic Android file-system navigation without installing Android Studio or local ADB.
 
 ## Tools & Setup
 
 | Item | Details |
 |---|---|
-| Interface | WebADB (app.webadb.com) |
-| Connection method | Wireless Debugging (ADB over Wi-Fi) |
+| Interface | WebADB |
+| Connection method | Wireless Debugging |
 | Connected device ID | RE6090L1 |
-| Browser | Chrome |
-
-USB was not available, so the device was connected using Wireless Debugging: Developer Options → Wireless Debugging → paired via pairing code over the same Wi-Fi network, then connected through the ADB over WiFi option in WebADB.
+| Browser | Google Chrome |
 
 ## Steps Performed
 
-1. Opened WebADB at app.webadb.com in Chrome.
+1. Opened WebADB in Google Chrome.
 2. Enabled Developer Options and Wireless Debugging on the Android device.
 3. Paired and connected the device to WebADB over Wi-Fi.
-4. Opened Interactive Shell and confirmed device connection (RE6090L1).
-5. Ran basic navigation and identity commands.
-6. Navigated the device file system under /sdcard.
+4. Opened the Interactive Shell and confirmed the device connection.
+5. Executed basic ADB shell commands.
+6. Practiced Android file-system navigation.
+7. Used package management commands to inspect installed applications.
+8. Used activity management commands to open an Android system activity.
 
-## Commands Executed & Output
+## Commands Executed
+
+```bash
+adb devices
+adb shell
+
+pwd
+whoami
+ls
+cd /sdcard
+ls -l
+cd Download
+ls
+cd /
+
+pm list packages
+pm path com.android.settings
+
+am start -a android.settings.SETTINGS
+```
+
+## Output
+
+The Android device was successfully connected through WebADB. Basic shell navigation, package inspection, APK path identification, and activity launching were performed successfully.
+
+### Evidence
+
+- WebADB connection screenshot
+- ADB shell screenshot
+- Screen recording of the practical
+
+## Result
+
+ADB operations were successfully performed through WebADB using a wireless Android device. Device enumeration, shell access, package management, activity management, and basic file-system navigation were successfully demonstrated.
 
 
 # Experiment 2 — Android Studio Installation and SDK Configuration
@@ -58,9 +92,13 @@ To install Android Studio and verify the Android SDK and required SDK tools for 
 ## Steps Performed
 
 1. Installed Android Studio with the required Android SDK and emulator components.
-2. Opened **Android SDK Manager** and verified the installed SDK platform.
-3. Verified the required SDK tools including **Build-Tools, Platform-Tools, Emulator, Command-line Tools, and Emulator Hypervisor Driver**.
-4. Confirmed that the required SDK components were successfully installed and available.
+2. Opened Android SDK Manager.
+3. Verified the installed Android SDK platform.
+4. Verified Android SDK Build-Tools.
+5. Verified Android SDK Platform-Tools.
+6. Verified Android Emulator.
+7. Verified Android SDK Command-line Tools.
+8. Verified the Emulator Hypervisor Driver and required virtualization support.
 
 ## Output
 
@@ -76,7 +114,14 @@ Android Studio SDK Manager displayed the installed Android platform and required
 
 Android Studio was successfully installed and the Android SDK and required SDK tools were configured and verified successfully.
 
-# Experiment 3 – Android Architecture, Boot Process & Partition Layout
+
+# Experiment 3 — Android Architecture, Boot Process & Partition Layout
+
+**Course:** 7CS1292 / Mobile Penetration Testing and Ethical Hacking  
+**Platform:** Windows  
+**Software:** Android Studio and Android Emulator  
+**Command-line Tool:** Android SDK Platform-Tools (ADB)  
+**Virtual Device:** Pixel 8  
 
 ## Aim
 
@@ -130,13 +175,39 @@ ls /product
 
 getprop ro.boot.dynamic_partitions
 getprop ro.boot.super_partition
+```
+
+## Key Results
+
+- ADB successfully connected to the Pixel 8 emulator.
+- Android Version: 15.
+- API Level: 35.
+- CPU ABI: x86_64.
+- Linux kernel information was obtained.
+- `/system`, `/vendor`, and `/product` directories were inspected.
+- Mounted filesystems were examined using `df -h` and `/proc/mounts`.
+- `super`, `vbmeta`, and `metadata` block devices were identified.
+- Dynamic partitions were reported as enabled.
+- Some `/proc` information returned `Permission denied`, which was recorded without bypassing permissions.
+
+### Evidence
+
+- ADB and architecture screenshot
+- Partition information screenshot
+- Screen recording of the practical
+
+## Result
+
+The Android emulator architecture, boot-related information, mounted filesystems, and partition layout were successfully examined using read-only ADB commands.
+
 
 # Experiment 4 — APK Dissection Using Apktool and Android Emulator
 
 **Course:** 7CS1292 / Mobile Penetration Testing and Ethical Hacking  
 **Platform:** Windows  
 **Tools:** Android Studio, Android Emulator, ADB, Apktool, Android SDK Build-Tools  
-**Training Application:** InsecureBankv2
+**Training Application:** InsecureBankv2  
+**Emulator:** Pixel 5  
 
 ## Aim
 
@@ -149,6 +220,7 @@ To learn the basic workflow of APK analysis using Apktool and an Android Emulato
 - Android SDK Platform-Tools
 - ADB
 - Apktool
+- Android SDK Build-Tools
 - InsecureBankv2 training application
 - Windows
 
@@ -157,16 +229,17 @@ To learn the basic workflow of APK analysis using Apktool and an Android Emulato
 1. Started the Android Emulator and verified the device using ADB.
 2. Identified the installed InsecureBankv2 training application.
 3. Located the APK path using the Android Package Manager.
-4. Pulled the authorized APK from the emulator to the Windows system.
-5. Decoded the APK using Apktool.
-6. Inspected the decoded AndroidManifest.xml and application structure.
-7. Inspected SMALI files in the decoded project.
-8. Modified a harmless UI text value without changing security functionality.
-9. Rebuilt the modified APK using Apktool.
-10. Signed the rebuilt APK using a lab signing key.
-11. Verified the APK signature using apksigner.
-12. Installed and tested the modified APK in the Android Emulator.
-13. Verified that the harmless UI modification was reflected in the application.
+4. Created the working directory `C:\APKLab`.
+5. Pulled the authorized APK from the emulator to the Windows system.
+6. Decoded the APK using Apktool.
+7. Inspected the decoded `AndroidManifest.xml` and application structure.
+8. Inspected SMALI files in the decoded project.
+9. Performed a harmless UI modification without changing security functionality.
+10. Rebuilt the modified APK using Apktool.
+11. Signed the rebuilt APK using a lab signing key.
+12. Verified the APK signature using `apksigner`.
+13. Installed and tested the modified APK in the Android Emulator.
+14. Verified the modified application and UI output.
 
 ## Commands Used
 
@@ -174,25 +247,54 @@ To learn the basic workflow of APK analysis using Apktool and an Android Emulato
 adb devices
 adb shell pm list packages | findstr /i "insecure"
 adb shell pm path com.android.insecurebankv2
-adb pull <APK_PATH> C:\APKLab\insecurebankv2.apk
+
+adb pull "/data/app/<actual-apk-path>/base.apk" "C:\APKLab\insecurebankv2.apk"
 
 apktool --version
 apktool d insecurebankv2.apk -o insecurebankv2_decoded
 apktool b insecurebankv2_decoded -o insecurebankv2_modified.apk
 
 keytool -genkeypair -v -keystore lab-key.jks -alias labkey -keyalg RSA -keysize 2048 -validity 10000
+
 apksigner sign --ks lab-key.jks insecurebankv2_modified.apk
 apksigner verify --verbose insecurebankv2_modified.apk
 
 adb install insecurebankv2_modified.apk
+```
+
+## Output
+
+- The Android Emulator was successfully detected through ADB.
+- The InsecureBankv2 package was identified successfully.
+- The authorized APK was extracted from the emulator.
+- APK contents were decoded and inspected.
+- AndroidManifest.xml and SMALI files were examined.
+- A harmless UI modification was performed.
+- The modified APK was rebuilt and signed.
+- The modified application was installed and tested on the emulator.
+
+### Evidence
+
+- ADB and APK extraction screenshot
+- APK analysis screenshot
+- Rebuild/signing screenshot
+- Modified application emulator screenshot
+- Screen recording of the practical
+
+## Result
+
+The authorized InsecureBankv2 training APK was successfully analyzed using Apktool, modified with a harmless UI change, rebuilt, signed, installed, and tested in the Android Emulator.
+
 
 # Experiment 5 — Android Application Creation and UI Event Testing
 
 **Course:** 7CS1292 / Mobile Penetration Testing and Ethical Hacking  
 **Platform:** Windows  
 **IDE:** Android Studio  
+**Project:** AndroidSecurityLab  
 **Emulator:** Pixel 5 API 30  
-**Language:** Kotlin / Jetpack Compose
+**Language:** Kotlin  
+**UI Framework:** Jetpack Compose  
 
 ## Aim
 
@@ -214,9 +316,9 @@ To create a basic Android application with a TextView and Button, implement a bu
 1. Created a new Android Studio project using the Empty Activity template.
 2. Created the project named `AndroidSecurityLab`.
 3. Designed the application screen using Jetpack Compose.
-4. Added the TextView text `Android Security Lab`.
+4. Added the text `Android Security Lab`.
 5. Added a `SHOW MESSAGE` button.
-6. Implemented the button click event using an OnClickListener.
+6. Implemented the button click event.
 7. Configured the application to display a harmless confirmation message when the button was pressed.
 8. Built the application successfully.
 9. Ran the application on the Pixel 5 Android Emulator.
@@ -224,7 +326,9 @@ To create a basic Android application with a TextView and Button, implement a bu
 
 ## Output
 
-The Android application launched successfully in the emulator. The screen displayed:
+The Android application launched successfully in the emulator.
+
+The screen displayed:
 
 - `Android Security Lab`
 - `SHOW MESSAGE` button
